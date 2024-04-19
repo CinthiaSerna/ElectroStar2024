@@ -4,7 +4,7 @@ function Validation(values) {
     const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
 
     if(values.email === "") {
-        error.email = "Correo no ingresado"
+        error.email = "No has ingresado el Correo"
     }
     else if (!email_pattern.test(values.email)){
         error.email = "El correo no existe"

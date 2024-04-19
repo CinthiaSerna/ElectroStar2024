@@ -41,74 +41,74 @@ function Signup(){
     }
 
     return(
-        <div className='bg-primary vh-100 d-flex justify-content-center align-items-center'>
-            <div className='bg-white p-4 rounded w-50'>
-                <h2 className="text-center mb-4">Registro</h2>
+        <div className='body'>
+            <div className='signup-form'>
+                <h2 className="registro">Registro</h2>
                 <div className='row'>
                     <div className='col-md-6'>
                         <form action='' onSubmit={handleSubmit}>
                             <div className='mb-3'>
-                                <label htmlFor='documento'><strong>Documento</strong></label>
+                                <label htmlFor='documento'><strong className='titulo'>Documento</strong></label>
                                 <input type='text' placeholder='Ingresa tu documento' name='documento'
                                 value={values.documento}
-                                onChange={handleInput} className='form-control rounded-0'/>
+                                onChange={handleInput} className='controls'/>
                                 {errors.documento && <span className='text-danger'>{errors.documento}</span>}
                             </div>
                             <div className='mb-3'>
-                                <label htmlFor='nombre'><strong>Nombre</strong></label>
+                                <label htmlFor='nombre'><strong className='titulo'>Nombre</strong></label>
                                 <input type='text' placeholder='Ingresa tu nombre' name='nombre'
                                 value={values.nombre}
-                                onChange={handleInput} className='form-control rounded-0'/>
+                                onChange={handleInput} className='controls'/>
                                 {errors.nombre && <span className='text-danger'>{errors.nombre}</span>}
                             </div>
                             <div className='mb-3'>
-                                <label htmlFor='apellido1'><strong>Primer Apellido</strong></label>
+                                <label htmlFor='apellido1'><strong className='titulo'>Primer Apellido</strong></label>
                                 <input type='text' placeholder='Ingresa tu primer apellido' name='primerApellido'
                                 value={values.primerApellido}
-                                onChange={handleInput} className='form-control rounded-0'/>
+                                onChange={handleInput} className='controls'/>
                                 {errors.primerApellido && <span className='text-danger'>{errors.primerApellido}</span>}
                             </div>
                             <div className='mb-3'>
-                                <label htmlFor='apellido2'><strong>Segundo Apellido (opcional)</strong></label>
-                                <input type='text' placeholder='Ingresa tu segundo apellido' name='segundoApellido'
+                                <label htmlFor='apellido2'><strong className='titulo'>Segundo Apellido</strong></label>
+                                <input type='text' placeholder='Ingresa tu segundo apellido (opcional)' name='segundoApellido'
                                 value={values.segundoApellido}
-                                onChange={handleInput} className='form-control rounded-0'/>
+                                onChange={handleInput} className='controls'/>
                             </div>
                             <div className='d-flex justify-content-center'>
-                            <p className="mt-2 text-center">¿Ya tienes una cuenta?</p>
-                                <Link to="/login" className='btn btn-default bg-light text-decoration-none'>Iniciar Sesión</Link>
+                            <p className="terminos">¿Ya tienes una cuenta?</p>
+                                <Link to="/login" className='button'>Iniciar Sesión</Link>
                             </div>
                         </form>
                     </div>
                     <div className='col-md-6'>
                         <form action='' onSubmit={handleSubmit}>
                             <div className='mb-3'>
-                                <label htmlFor='correo'><strong>Correo</strong></label>
+                                <label htmlFor='correo'><strong className='titulo'>Correo</strong></label>
                                 <input type='text' placeholder='Ingresa tu correo' name='email'
                                 value={values.email}
-                                onChange={handleInput} className='form-control rounded-0'/>
+                                onChange={handleInput} className='controls'/>
                                 {errors.email && <span className='text-danger'>{errors.email}</span>}
                             </div>
                             <div className='mb-3'>
-                                <label htmlFor='confirmCorreo'><strong>Confirmar Correo</strong></label>
+                                <label htmlFor='confirmCorreo'><strong className='titulo'>Confirmar Correo</strong></label>
                                 <input type='text' placeholder='Confirma tu correo' name='confirmarEmail'
-                                onChange={handleInput} className='form-control rounded-0'/>
+                                onChange={handleInput} className='controls'/>
                                 {errors.confirmarEmail && <span className='text-danger'>{errors.confirmarEmail}</span>}
                             </div>
                             <div className='mb-3'>
-                                <label htmlFor='password'><strong>Contraseña</strong></label>
+                                <label htmlFor='password'><strong className='titulo'>Contraseña</strong></label>
                                 <input type='password' placeholder='Crea tu contraseña' name='password'
-                                onChange={handleInput} className='form-control rounded-0'/>
+                                onChange={handleInput} className='controls'/>
                                 {errors.password && <span className='text-danger'>{errors.password}</span>}
                             </div>
                             <div className='mb-3'>
-                                <label htmlFor='confirmPassword'><strong>Confirmar Contraseña</strong></label>
+                                <label htmlFor='confirmPassword'><strong className='titulo'>Contraseña</strong></label>
                                 <input type='password' placeholder='Confirma tu contraseña' name='confirmarPassword'
-                                onChange={handleInput} className='form-control rounded-0'/>
+                                onChange={handleInput} className='controls'/>
                                 {errors.confirmarPassword && <span className='text-danger'>{errors.confirmarPassword}</span>}
                             </div>
                             <div className="d-flex justify-content-center">
-                                <button type='submit' className='btn btn-success me-3'>Registrarme</button>
+                                <button type='submit' className='login-button'>Registrarme</button>
                             </div>
                         </form>
                     </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Validation from'./LoginValidation';
 import axios from 'axios';
-
+import '../Styles/Style.css';
 
 function Login() {
 
@@ -37,26 +37,26 @@ function Login() {
     }
 
     return (
-        <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
-            <div className='bg-white p-4 rounded w-25'>
+        <div className='body'>
+            <div className='login-form'>
                 <h2>Inicia Sesión</h2>
                 <form action="" onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label htmlFor='email'><strong>Correo</strong></label>
+                    <div>
+                        <label htmlFor='email'><strong className='titulo'>Correo</strong></label>
                         <input type='email' placeholder='Ingresa el Correo' name='email'
-                        onChange={handleInput} className='form-control rounded-0'/>
+                        onChange={handleInput} className='controls'/>
                         {errors.email && <span className='text-danger'>{errors.email}</span>}
                     </div>
-                    <div className='mb-3'>
-                        <label htmlFor='password'><strong>Contraseña</strong></label>
+                    <div>
+                        <label htmlFor='password'><strong className='titulo'>Contraseña</strong></label>
                         <input type='password' placeholder='Ingresa su contraseña' name='password'
-                        onChange={handleInput} className='form-control rounded-0'/>
+                        onChange={handleInput} className='controls'/>
                         {errors.password && <span className='text-danger'>{errors.password}</span>}
                     </div>
                     <div> 
-                        <button className='btn btn-success w-100 rounded-0'>Iniciar Sesión</button> 
-                        <p className='mt-3'>¿Aun no tienes una cuenta? Regístrate</p>
-                        <Link to="/signup" className='btn btn-default w-100 bg-light rounded-0 text-decoration-none'>Registrarme</Link>
+                        <button className='login-button'>Iniciar Sesión</button> 
+                        <p className='terminos'>¿Aun no tienes una cuenta?</p>
+                        <Link to="/signup" className='button'>Registrarme</Link>
                     </div>
                 </form>
             </div>

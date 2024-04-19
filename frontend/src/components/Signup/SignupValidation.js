@@ -18,7 +18,7 @@ function ValidationSign(values) {
     }
 
     if (!values.primerApellido) {
-        errors.primerApellido = "Primer apellido no ingresado";
+        errors.primerApellido = "Apellido no ingresado";
     } else if (!name_Pattern.test(values.primerApellido)) {
         errors.primerApellido = "El formato del primer apellido es incorrecto";
     }
