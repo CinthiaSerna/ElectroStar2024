@@ -42,13 +42,13 @@ function Login() {
                 <h2>Inicia Sesión</h2>
                 <form action="" onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor='email'><strong className='titulo'>Correo</strong></label>
+                        <label htmlFor='email'><strong className='titulo1'>Correo</strong></label>
                         <input type='email' placeholder='Ingresa el Correo' name='email'
                         onChange={handleInput} className='controls'/>
                         {errors.email && <span className='text-danger'>{errors.email}</span>}
                     </div>
                     <div>
-                        <label htmlFor='password'><strong className='titulo'>Contraseña</strong></label>
+                        <label htmlFor='password'><strong className='titulo1'>Contraseña</strong></label>
                         <input type='password' placeholder='Ingresa su contraseña' name='password'
                         onChange={handleInput} className='controls'/>
                         {errors.password && <span className='text-danger'>{errors.password}</span>}

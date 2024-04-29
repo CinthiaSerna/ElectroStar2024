@@ -1,12 +1,32 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Header } from "./Header";
+import { ProductList } from "./ProductList";
 
 function Home() {
+
+  const [allProducts, setAllProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [countProduct, setCountProducts] = useState(0);
+
   return (
-    <div className='d-flex justify-content-center'>
-        <p className="mt-2 text-center">Volver al inicio</p>
-        <Link to="/login" className='btn btn-default bg-light text-decoration-none'>Volver</Link>
-    </div>
+    <>
+      <Header 
+      allProducts={allProducts} 
+      setAllProducts={setAllProducts}
+      total={total}
+      setTotal={setTotal}
+      countProduct={countProduct}
+      setCountProduct={setCountProducts}/>
+
+      <ProductList 
+      allProducts={allProducts} 
+      setAllProducts={setAllProducts}
+      total={total}
+      setTotal={setTotal}
+      countProduct={countProduct}
+      setCountProduct={setCountProducts}
+      />
+    </>
   );
 }
 
