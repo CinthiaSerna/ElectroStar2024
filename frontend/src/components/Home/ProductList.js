@@ -6,7 +6,7 @@ export const ProductList = ({
 	allProducts,
 	setAllProducts,
 	countProducts,
-	setCountProducts,   
+	setCountProducts,
 	total,
 	setTotal,
 }) => {

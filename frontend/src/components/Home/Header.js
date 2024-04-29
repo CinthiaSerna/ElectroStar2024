@@ -10,6 +10,7 @@ export const Header = ({
 	setCountProducts,
 	setTotal,
 }) => {
+	
 	const [active, setActive] = useState(false);
 
 	const onDeleteProduct = product => {
