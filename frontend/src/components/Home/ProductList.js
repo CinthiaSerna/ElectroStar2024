@@ -28,7 +28,8 @@ export const ProductList = ({
 	};
 
 	return (
-		<div className='container-items'>
+		<div className='Fondo'>
+			<div className='container-items'>
 			{data.map(product => (
 				<div className='item' key={product.id}>
 					<figure>
@@ -43,6 +44,7 @@ export const ProductList = ({
 					</div>
 				</div>
 			))}
+		</div>
 		</div>
 	);
 };

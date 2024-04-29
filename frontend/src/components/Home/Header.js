@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './StyleCarrito.css';
+import logo from './img/mando.png';
 
 export const Header = ({
 	allProducts,
@@ -28,9 +29,11 @@ export const Header = ({
 	};
 
 	return (
-		<header>
-			<h1 className='titulo'>Electro Star</h1>
-
+	<header> 
+			<div className='logo-container'>
+				<img src={logo} alt='Logo' className='logo' />
+				<h1 className='titulo'>Electro Star</h1>
+			</div>
 			<div className='container-icon'>
 				<div
 					className='container-cart-icon'
