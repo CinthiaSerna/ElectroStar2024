@@ -32,7 +32,7 @@ app.post('/signup', (req, res) => {
     })
 })
 
-app.post('/login', (req, res) => {
+app.post('/signup', (req, res) => {
     const sql = "SELECT * FROM users WHERE `email` = ? AND `password` = ?";
     db.query(sql, [req.body.email,req.body.password], (err, data) => {
         if(err) {
