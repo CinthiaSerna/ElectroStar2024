@@ -1,3 +1,69 @@
+.user-icon-container {
+  position: relative;
+  display: inline-block;
+  margin: 0 -300px 0 300px;
+}
+
+.user-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff; 
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  overflow: hidden;
+}
+
+.user-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.user-info-box {
+  position: absolute;
+  top: 60px;
+  width: 250px;
+  left: 0;
+  background-color: rgb(205, 205, 205);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1;
+}
+
+.user-name,
+.user-email {
+  margin: 5px 0;
+  color: #333;
+}
+
+.logout-button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.logout-button:hover {
+  background-color: #d32f2f;
+}
+
+
+/*--------------------------------------------------------------------*/
+
 .shopping-cart-header {
     background-color: #fff;
     padding: 1.2% ;
