@@ -4,6 +4,25 @@ import ValidationSign from "./SignupValidation";
 import axios from "axios";
 import "../Styles/Cuenta.css";
 
+
+function validateLogin(values) {
+  const errors = {};
+  const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!values.email) {
+      errors.email = "Correo no ingresado";
+  } else if (!email_pattern.test(values.email)) {
+      errors.email = "El correo electrónico no es válido";
+  }
+
+  if (!values.password) {
+      errors.password = "Contraseña no ingresada";
+  }
+
+  return errors;
+}
+
+
 function Signup() {
   const [values, setValues] = useState({
     documento: "",
@@ -49,28 +68,28 @@ function Signup() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    const { email, password } = values;
-  
-    // Verificar si las credenciales son del administrador
-    if (email === "admin@example.com" && password === "admin123") {
-      // Redirigir al área de administrador
-      navigate("/admin");
-    } else {
-      // Lógica para el inicio de sesión de usuarios normales
-      axios
-        .post("http://localhost:8081/signup", { email, password })
-        .then((res) => {
-          const userData = res.data;
-          localStorage.setItem("user", JSON.stringify(userData));
-          navigate("/shopping");
-        })
-        .catch((err) => {
-          console.log(err);
-          setErrors({ login: "Credenciales inválidas" });
-        });
+    const loginErrors = validateLogin(values);
+    setErrors(loginErrors);
+    if(Object.keys(loginErrors).length === 0){
+      const { email, password } = values;
+      if (email === "admin@example.com" && password === "admin123") {
+        navigate("/admin");
+      } else {
+        axios
+          .post("http://localhost:8081/signup", { email, password })
+          .then((res) => {
+            const userData = res.data;
+            localStorage.setItem("user", JSON.stringify(userData));
+            navigate("/shopping");
+          })
+          .catch((err) => {
+            console.log(err);
+            setErrors({ login: "Credenciales inválidas" });
+          });
+      }
+
     }
   };
-  
 
   const iniciarSesion = () => {
     if (window.innerWidth > 850) {
