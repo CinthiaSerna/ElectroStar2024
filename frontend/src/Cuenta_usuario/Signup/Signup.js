@@ -4,24 +4,22 @@ import ValidationSign from "./SignupValidation";
 import axios from "axios";
 import "../Styles/Cuenta.css";
 
-
 function validateLogin(values) {
   const errors = {};
-  const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Improved email validation
 
   if (!values.email) {
-      errors.email = "Correo no ingresado";
-  } else if (!email_pattern.test(values.email)) {
-      errors.email = "El correo electrónico no es válido";
+    errors.email = "Correo no ingresado";
+  } else if (!emailRegex.test(values.email)) {
+    errors.email = "El correo electrónico no es válido";
   }
 
   if (!values.password) {
-      errors.password = "Contraseña no ingresada";
+    errors.password = "Contraseña no ingresada";
   }
 
   return errors;
 }
-
 
 function Signup() {
   const [values, setValues] = useState({
@@ -39,11 +37,14 @@ function Signup() {
   const [errors, setErrors] = useState({});
 
   const [formularioLoginVisible, setFormularioLoginVisible] = useState(true);
-  const [formularioRegisterVisible, setFormularioRegisterVisible] = useState(false);
+  const [formularioRegisterVisible, setFormularioRegisterVisible] =
+    useState(false);
   const [contenedorLeft, setContenedorLeft] = useState("0px");
-  const [cajaTraseraRegisterVisible, setCajaTraseraRegisterVisible] = useState(true);
+  const [cajaTraseraRegisterVisible, setCajaTraseraRegisterVisible] =
+    useState(true);
   const [cajaTraseraLoginVisible, setCajaTraseraLoginVisible] = useState(true);
-  const [cajaTraseraRegisterOpacity, setCajaTraseraRegisterOpacity] = useState(1);
+  const [cajaTraseraRegisterOpacity, setCajaTraseraRegisterOpacity] =
+    useState(1);
   const [cajaTraseraLoginOpacity, setCajaTraseraLoginOpacity] = useState(1);
 
   const handleInput = (event) => {
@@ -58,7 +59,7 @@ function Signup() {
       axios
         .post("http://localhost:8081/signup", values)
         .then((res) => {
-          const userData = res.data; 
+          const userData = res.data;
           localStorage.setItem("user", JSON.stringify(userData));
           navigate("/shopping");
         })
@@ -70,26 +71,66 @@ function Signup() {
     event.preventDefault();
     const loginErrors = validateLogin(values);
     setErrors(loginErrors);
-    if(Object.keys(loginErrors).length === 0){
+
+    if (Object.keys(loginErrors).length === 0) {
       const { email, password } = values;
+
+      // Handle admin login
       if (email === "admin@example.com" && password === "admin123") {
         navigate("/admin");
       } else {
+        // Validate user credentials against backend
         axios
-          .post("http://localhost:8081/signup", { email, password })
-          .then((res) => {
-            const userData = res.data;
-            localStorage.setItem("user", JSON.stringify(userData));
-            navigate("/shopping");
+          .post("http://localhost:8081/login", {
+            email: email,
+            password: password,
           })
-          .catch((err) => {
-            console.log(err);
-            setErrors({ login: "Credenciales inválidas" });
+          .then((res) => {
+            console.log("res", res);
+            const status = res.data;
+            status === "Success" &&
+              localStorage.setItem(
+                "user",
+                JSON.stringify({
+                  email: email,
+                  password: password,
+                })
+              );
+            status === "Success" && navigate("/shopping");
+            if (status === "Failed") {
+              console.error("Login failed:");
+              setErrors({ login: "Credenciales inválidas" });
+              alert("Credenciales inválidas");
+            }
           });
       }
-
     }
   };
+
+  // const handleLogin = (event) => {
+  //   event.preventDefault();
+  //   const loginErrors = validateLogin(values);
+  //   setErrors(loginErrors);
+  //   if(Object.keys(loginErrors).length === 0){
+  //     const { email, password } = values;
+  //     if (email === "admin@example.com" && password === "admin123") {
+  //       navigate("/admin");
+  //     } else {
+  //       axios
+  //         .post("http://localhost:8081/signup", { email, password })
+  //         .then((res) => {
+  //           const userData = res.data;
+  //           localStorage.setItem("user", JSON.stringify(userData));
+  //           navigate("/shopping");
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           setErrors({ login: "Credenciales inválidas" });
+  //         });
+  //     }
+
+  //   }
+  // };
 
   const iniciarSesion = () => {
     if (window.innerWidth > 850) {
@@ -151,7 +192,10 @@ function Signup() {
         <div
           className="caja__trasera"
           style={{
-            display: cajaTraseraRegisterVisible || cajaTraseraLoginVisible ? "flex" : "none",
+            display:
+              cajaTraseraRegisterVisible || cajaTraseraLoginVisible
+                ? "flex"
+                : "none",
           }}
         >
           <div
@@ -189,7 +233,7 @@ function Signup() {
           <form
             className="formulario__login"
             style={{ display: formularioLoginVisible ? "block" : "none" }}
-            onSubmit={handleLogin}
+            onSubmit={handleLogin} //handleLogin
           >
             <h2>Iniciar Sesión</h2>
             <input
@@ -200,7 +244,9 @@ function Signup() {
               onChange={handleInput}
               className="controls"
             />
-            {errors.email && <span className="text-danger">{errors.email}</span>}
+            {errors.email && (
+              <span className="text-danger">{errors.email}</span>
+            )}
             <input
               type="password"
               placeholder="Contraseña *"
@@ -209,8 +255,12 @@ function Signup() {
               onChange={handleInput}
               className="controls"
             />
-            {errors.password && <span className="text-danger">{errors.password}</span>}
-            {errors.login && <span className="text-danger">{errors.login}</span>}
+            {errors.password && (
+              <span className="text-danger">{errors.password}</span>
+            )}
+            {errors.login && (
+              <span className="text-danger">{errors.login}</span>
+            )}
             <button type="submit" className="login-button">
               Entrar
             </button>
@@ -240,8 +290,12 @@ function Signup() {
                 className="controls"
               />
             </div>
-            {errors.documento && <span className="text-danger">{errors.documento}</span>}
-            {errors.nombre && <span className="text-danger">{errors.nombre}</span>}
+            {errors.documento && (
+              <span className="text-danger">{errors.documento}</span>
+            )}
+            {errors.nombre && (
+              <span className="text-danger">{errors.nombre}</span>
+            )}
             <div className="form-row">
               <input
                 type="text"
@@ -260,7 +314,9 @@ function Signup() {
                 className="controls"
               />
             </div>
-            {errors.primerApellido && <span className="text-danger">{errors.primerApellido}</span>}
+            {errors.primerApellido && (
+              <span className="text-danger">{errors.primerApellido}</span>
+            )}
             <div className="form-row">
               <input
                 type="text"
@@ -279,8 +335,12 @@ function Signup() {
                 className="controls"
               />
             </div>
-            {errors.email && <span className="text-danger">{errors.email}</span>}
-            {errors.confirmarEmail && <span className="text-danger">{errors.confirmarEmail}</span>}
+            {errors.email && (
+              <span className="text-danger">{errors.email}</span>
+            )}
+            {errors.confirmarEmail && (
+              <span className="text-danger">{errors.confirmarEmail}</span>
+            )}
             <div className="form-row">
               <input
                 type="password"
@@ -299,7 +359,9 @@ function Signup() {
                 className="controls"
               />
             </div>
-            {errors.password && <span className="text-danger">{errors.password}</span>}
+            {errors.password && (
+              <span className="text-danger">{errors.password}</span>
+            )}
             {errors.confirmarPassword && (
               <span className="text-danger">{errors.confirmarPassword}</span>
             )}

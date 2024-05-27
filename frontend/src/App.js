@@ -23,6 +23,10 @@ function App() {
   const [total, setTotal] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  useEffect(()=>{
+    console.log(localStorage.getItem('user'))
+  },[])
+
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (token) {

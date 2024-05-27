@@ -12,7 +12,7 @@ function ValidationSign(values) {
     }
 
     if (values.nombre === "") {
-        errors.nombre = "Nombre no ingresado";
+        errors.nombre = " Nombre no ingresado";
     } else if (!name_Pattern.test(values.nombre)) {
         errors.nombre = "El formato del nombre es incorrecto";
     }

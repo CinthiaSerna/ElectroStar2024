@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './ShoppingCartNavbar.css';
 import cesta from '../img/cestados.png';
 import userImage from '../img/usuario (1).png'
 
 const ShoppingCartNavbar = ({ countProducts }) => {
+
+  useEffect(() => {
+    console.log(localStorage.getItem("user"));
+  }, []);
 
   const [showInfo, setShowInfo] = useState(false);
 
@@ -34,7 +38,11 @@ const ShoppingCartNavbar = ({ countProducts }) => {
         <div className="shopping-cart-icon-container">
           <Link to="/cart" className="shopping-cart-link">
             <img id="carrito" className="carrito" src={cesta} alt="Carrito" />
-            {countProducts > 0 && <div id="numero" className="cart-count">{countProducts}</div>}
+            {countProducts > 0 && (
+              <div id="numero" className="cart-count">
+                {countProducts}
+              </div>
+            )}
           </Link>
         </div>
       </div>
