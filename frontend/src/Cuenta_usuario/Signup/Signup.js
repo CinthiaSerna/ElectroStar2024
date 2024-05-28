@@ -60,12 +60,12 @@ function Signup() {
         .post("http://localhost:8081/signup", values)
         .then((res) => {
           const userData = res.data;
-          localStorage.setItem("user", JSON.stringify(userData));
+          localStorage.setItem("user", JSON.stringify(userData.email));
           navigate("/shopping");
         })
         .catch((err) => console.log(err));
     }
-  };
+  };  
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -77,6 +77,7 @@ function Signup() {
 
       // Handle admin login
       if (email === "admin@example.com" && password === "admin123") {
+        localStorage.setItem('user', JSON.stringify({ email: "admin@example.com", password: "admin123" }));
         navigate("/admin");
       } else {
         // Validate user credentials against backend
@@ -106,31 +107,6 @@ function Signup() {
       }
     }
   };
-
-  // const handleLogin = (event) => {
-  //   event.preventDefault();
-  //   const loginErrors = validateLogin(values);
-  //   setErrors(loginErrors);
-  //   if(Object.keys(loginErrors).length === 0){
-  //     const { email, password } = values;
-  //     if (email === "admin@example.com" && password === "admin123") {
-  //       navigate("/admin");
-  //     } else {
-  //       axios
-  //         .post("http://localhost:8081/signup", { email, password })
-  //         .then((res) => {
-  //           const userData = res.data;
-  //           localStorage.setItem("user", JSON.stringify(userData));
-  //           navigate("/shopping");
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //           setErrors({ login: "Credenciales inválidas" });
-  //         });
-  //     }
-
-  //   }
-  // };
 
   const iniciarSesion = () => {
     if (window.innerWidth > 850) {

@@ -13,8 +13,12 @@ import Cart from './Cart/Cart';
 import Checkout from './Checkout/Checkout';
 import AdminPanel from './Admin/AdminPanel';
 import AdminNavbar from './Admin/AdminNavbar';
+import PrivateRoute from './PrivateRoute';
+import AdminRoute from './AdminRoute';
+
 
 function App() {
+
   const [allProducts, setAllProducts] = useState(() => {
     const storedProducts = localStorage.getItem('products');
     return storedProducts ? JSON.parse(storedProducts) : [];
@@ -71,19 +75,27 @@ function App() {
           <Route
             path="/admin"
             element={
+              <AdminRoute>
               <>
                 <AdminNavbar />
                 <AdminPanel products={allProducts} setProducts={setAllProducts} />
               </>
+              </AdminRoute>
             }
           />
           <Route
             path="/shopping"
-            element={<ShoppingCartNavbar countProducts={countProducts} />}
+            element={
+              <PrivateRoute>
+                <ShoppingCartNavbar countProducts={countProducts} />
+              </PrivateRoute>}
           />
           <Route
             path="*"
-            element={<NavigationBar countProducts={countProducts} isAdmin={isAdmin} logout={logout} />}
+            element={
+              <PrivateRoute>
+                <NavigationBar countProducts={countProducts} isAdmin={isAdmin} logout={logout} />
+              </PrivateRoute>}
           />
         </Routes>
         <Routes>
