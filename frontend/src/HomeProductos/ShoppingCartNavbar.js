@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './ShoppingCartNavbar.css';
 import cesta from '../img/cestados.png';
 import userImage from '../img/usuario (1).png'
 
 const ShoppingCartNavbar = ({ countProducts }) => {
 
-  useEffect(() => {
-    console.log(localStorage.getItem("user"));
-  }, []);
-
+  const [user, setUser] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   const handleIconClick = () => {
     setShowInfo(!showInfo);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/");
   };
 
   return (
@@ -25,11 +36,11 @@ const ShoppingCartNavbar = ({ countProducts }) => {
           <img src={userImage} alt="User Icon" className="user-image" />
             <i className="fas fa-user"></i>
           </div>
-          {showInfo && (
+          {showInfo && user && (
             <div className="user-info-box">
-              <p className="user-name">Nombre Completo</p>
-              <p className="user-email">Correo</p>
-              <button className="logout-button" >
+              <p className="user-name">{user.nombre}</p>
+              <p className="user-email">{user.email}</p>
+              <button className="logout-button" onClick={handleLogout}>
                 Cerrar Sesión
               </button>
             </div>
