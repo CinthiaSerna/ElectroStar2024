@@ -16,7 +16,6 @@ import AdminNavbar from './Admin/AdminNavbar';
 import PrivateRoute from './PrivateRoute';
 import AdminRoute from './AdminRoute';
 
-
 function App() {
 
   const [allProducts, setAllProducts] = useState(() => {
