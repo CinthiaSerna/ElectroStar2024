@@ -15,7 +15,7 @@ const ShoppingCartNavbar = ({ countProducts }) => {
     if (storedUser) {
       setUser(storedUser);
     }
-  }, []);
+  }, []);   
 
   const handleIconClick = () => {
     setShowInfo(!showInfo);
@@ -38,7 +38,6 @@ const ShoppingCartNavbar = ({ countProducts }) => {
           </div>
           {showInfo && user && (
             <div className="user-info-box">
-              <p className="user-name">{user.nombre}</p>
               <p className="user-email">{user.email}</p>
               <button className="logout-button" onClick={handleLogout}>
                 Cerrar Sesión

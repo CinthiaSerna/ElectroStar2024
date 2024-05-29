@@ -59,8 +59,8 @@ function Signup() {
       axios
         .post("http://localhost:8081/signup", values)
         .then((res) => {
-          const userData = res.data;
-          localStorage.setItem("user", JSON.stringify(userData.email));
+          const userData = { ...values, email: values.email };
+          localStorage.setItem("user", JSON.stringify(userData));
           navigate("/shopping");
         })
         .catch((err) => console.log(err));
