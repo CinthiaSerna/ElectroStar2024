@@ -49,7 +49,11 @@ const Cart = ({ cartItems, updateCartItem, removeCartItem }) => {
   };
 
   const handleBuy = () => {
-    navigate('/checkout');
+    if (cartItems.length === 0) {
+      alert('El carrito está vacío. Agrega al menos un artículo para proceder.');
+    } else {
+      navigate('/checkout');
+    }
   };
 
   return (
