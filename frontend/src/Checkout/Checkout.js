@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PDFDocument, rgb } from 'pdf-lib';
+import { saveAs } from 'file-saver';
 import './Checkout.css';
+import logoImage from '../img/LogoElectroStar.png';
+
 
 const Checkout = ({ cartItems }) => {
   const [address, setAddress] = useState('');
@@ -44,7 +48,8 @@ const Checkout = ({ cartItems }) => {
     setPhoneError(false); // Reiniciar el mensaje de error cuando se cambia el número de teléfono
   };
 
-  const handleConfirmPurchase = () => {
+  const handleConfirmPurchase = async () => {
+
     if (!address) {
       setAddressError(true); // Mostrar mensaje de error si la dirección está vacía
     }
@@ -66,7 +71,66 @@ const Checkout = ({ cartItems }) => {
     console.log("Tipo de vivienda:", housingType);
     console.log("Teléfono:", phoneNumber);
     console.log("Productos a comprar:", cartItems);
-    navigate('/');
+    navigate('/shopping');
+
+    const pdfDoc = await PDFDocument.create();
+    const page = pdfDoc.addPage();
+    const { width, height } = page.getSize();
+
+    const fontSize = 15;
+    const titleHeight = 20;
+    const margin = 50;
+    const startY = height - margin;
+
+    const addText = (text, x, y) => {
+      page.drawText(text, { x, y, size: fontSize });
+    };
+
+    const addTitle = (text, x, y) => {
+      page.drawText(text, { x, y, size: fontSize + 5, color: rgb(0, 0, 0.5) });
+    };
+
+    const addSeparator = (y) => {
+      page.drawLine({ start: { x: margin, y }, end: { x: width - margin, y }, thickness: 1 });
+    };
+
+    addTitle('Resumen de Compra', margin, startY - titleHeight);
+
+    addText(`Dirección de envío: ${address}`, margin, startY - 2 * titleHeight);
+    addText(`Ciudad: ${city}`, margin, startY - 3 * titleHeight);
+    addText(`Tipo de vivienda: ${housingType}`, margin, startY - 4 * titleHeight);
+    addText(`Teléfono: ${phoneNumber}`, margin, startY - 5 * titleHeight);
+
+    addSeparator(startY - 6 * titleHeight);
+
+    let y = startY - 7 * titleHeight;
+    cartItems.forEach((item) => {
+      const line = `${item.nameProduct}: ${item.quantity} x $${item.price}`;
+      addText(line, margin, y);
+      y -= fontSize;
+    }); 
+
+    const total = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+    addText(`Total: $${total}`, margin, y - 2 * fontSize);
+
+    const logoImageBytes = await fetch(logoImage).then((res) => res.arrayBuffer());
+    const logoImageXObject = await pdfDoc.embedPng(logoImageBytes);
+    const logoImageDims = logoImageXObject.scale(0.150);
+    const logoImageWidth = logoImageDims.width;
+    const logoImageHeight = logoImageDims.height;
+    const logoX = width - margin - logoImageWidth; // Ajusta el margen según sea necesario
+    const logoY = startY - logoImageHeight;  // Ajusta la posición según sea necesario
+    page.drawImage(logoImageXObject, {
+      x: logoX,
+      y: logoY,
+      width: logoImageWidth,
+      height: logoImageHeight,
+    });
+    
+    const pdfBytes = await pdfDoc.save();
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    saveAs(blob, 'resumen_compra.pdf');
+
   };
 
   return (
