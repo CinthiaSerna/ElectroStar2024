@@ -5,7 +5,6 @@ import { saveAs } from 'file-saver';
 import './Checkout.css';
 import logoImage from '../img/LogoElectroStar.png';
 
-
 const Checkout = ({ cartItems }) => {
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -118,8 +117,8 @@ const Checkout = ({ cartItems }) => {
     const logoImageDims = logoImageXObject.scale(0.150);
     const logoImageWidth = logoImageDims.width;
     const logoImageHeight = logoImageDims.height;
-    const logoX = width - margin - logoImageWidth; // Ajusta el margen según sea necesario
-    const logoY = startY - logoImageHeight;  // Ajusta la posición según sea necesario
+    const logoX = width - margin - logoImageWidth;
+    const logoY = startY - logoImageHeight;
     page.drawImage(logoImageXObject, {
       x: logoX,
       y: logoY,
