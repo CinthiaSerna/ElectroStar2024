@@ -57,7 +57,7 @@ function Signup() {
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       axios
-        .post("http://localhost:8081/signup", values)
+        .post(`${process.env.REACT_APP_BACKEND_URL}/signup`, values)
         .then((res) => {
           const userData = { ...values, email: values.email };
           localStorage.setItem("user", JSON.stringify(userData));
@@ -82,7 +82,7 @@ function Signup() {
       } else {
         // Validate user credentials against backend
         axios
-          .post("http://localhost:8081/login", {
+          .post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
             email: email,
             password: password,
           })
