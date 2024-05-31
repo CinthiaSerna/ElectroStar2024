@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
@@ -6,12 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "electrostar",
-});
+const urlBD = `mysql://root:EELmXDZZQwevRXDPZeAclDGLFRdlUHmZ@monorail.proxy.rlwy.net:27173/railway`
+
+const db = mysql.createConnection(urlBD);
 
 app.post("/signup", (req, res) => {
   const sql =
