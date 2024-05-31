@@ -92,9 +92,7 @@ function App() {
           <Route
             path="*"
             element={
-              <PrivateRoute>
-                <NavigationBar countProducts={countProducts} isAdmin={isAdmin} logout={logout} />
-              </PrivateRoute>}
+                <NavigationBar countProducts={countProducts} isAdmin={isAdmin} logout={logout} />}
           />
         </Routes>
         <Routes>
