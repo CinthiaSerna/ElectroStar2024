@@ -57,7 +57,7 @@ function Signup() {
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/signup`, values)
+        .post(`${electrostar2024-production.up.railway.app}/signup`, values)
         .then((res) => {
           const userData = { ...values, email: values.email };
           localStorage.setItem("user", JSON.stringify(userData));
@@ -82,7 +82,7 @@ function Signup() {
       } else {
         // Validate user credentials against backend
         axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+          .post(`${electrostar2024-production.up.railway.app}/login`, {
             email: email,
             password: password,
           })
