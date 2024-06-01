@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const urlBD = `mysql://root:EELmXDZZQwevRXDPZeAclDGLFRdlUHmZ@monorail.proxy.rlwy.net:27173/railway`
+const urlBD = `mysql://root:krBxaiFBwPLQXeQSMJiIhRIPCKfQWeBs@monorail.proxy.rlwy.net:56181/railway`
 
 const db = mysql.createConnection(urlBD);
 
