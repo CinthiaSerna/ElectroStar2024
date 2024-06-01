@@ -75,35 +75,71 @@ function Signup() {
     if (Object.keys(loginErrors).length === 0) {
       const { email, password } = values;
 
-      // Handle admin login
       if (email === "admin@example.com" && password === "admin123") {
         localStorage.setItem('user', JSON.stringify({ email: "admin@example.com", password: "admin123" }));
         navigate("/admin");
       } else {
-        // Validate user credentials against backend
-        axios
-          .post(`electrostar2024-production.up.railway.app/login`, {
-            email: email,
-            password: password,
-          })
-          .then((res) => {
-            console.log("res", res);
-            const status = res.data;
-            status === "Success" &&
-              localStorage.setItem(
-                "user",
-                JSON.stringify({
-                  email: email,
-                  password: password,
-                })
-              );
-            status === "Success" && navigate("/shopping");
-            if (status === "Failed") {
-              console.error("Login failed:");
-              setErrors({ login: "Credenciales inválidas" });
-              alert("Credenciales inválidas");
-            }
-          });
+        // Check for "usuario quemado"
+        if (email === "pepito@gmail.com" && password === "Pepito12345") {
+          localStorage.setItem('user', JSON.stringify({ email: "pepito@gmail.com", password: "Pepito12345" }));
+          navigate("/shopping");  // Replace with the URL you want for "usuario quemado"
+        } else {
+          // Validate user credentials against backend
+          axios
+            .post(`https://electrostar2024-production.up.railway.app/login`, {
+              email: email,
+              password: password,
+            })
+            .then((res) => {
+              console.log("res", res);
+              const status = res.data;
+              if (status === "Success") {
+                localStorage.setItem(
+                  "user",
+                  JSON.stringify({
+                    email: email,
+                    password: password,
+                  })
+                );
+                navigate("/shopping");
+              } else if (status === "Failed") {
+                console.error("Login failed:");
+                setErrors({ login: "Credenciales inválidas" });
+                alert("Credenciales inválidas");
+              }
+            });
+        }
+      }      
+
+      // // Handle admin login
+      // if (email === "admin@example.com" && password === "admin123") {
+      //   localStorage.setItem('user', JSON.stringify({ email: "admin@example.com", password: "admin123" }));
+      //   navigate("/admin");
+      // } else {
+      //   // Validate user credentials against backend
+      //   axios
+      //     .post(`electrostar2024-production.up.railway.app/login`, {
+      //       email: email,
+      //       password: password,
+      //     })
+      //     .then((res) => {
+      //       console.log("res", res);
+      //       const status = res.data;
+      //       status === "Success" &&
+      //         localStorage.setItem(
+      //           "user",
+      //           JSON.stringify({
+      //             email: email,
+      //             password: password,
+      //           })
+      //         );
+      //       status === "Success" && navigate("/shopping");
+      //       if (status === "Failed") {
+      //         console.error("Login failed:");
+      //         setErrors({ login: "Credenciales inválidas" });
+      //         alert("Credenciales inválidas");
+      //       }
+      //     });
       }
     }
   };
