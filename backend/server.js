@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const urlBD = `MYSQL_URL=mysql://${{MYSQLUSER}}:${{MYSQL_ROOT_PASSWORD}}@${{RAILWAY_TCP_PROXY_DOMAIN}}:${{RAILWAY_TCP_PROXY_PORT}}/${{MYSQL_DATABASE}}`
+const urlBD = `mysql://root:krBxaiFBwPLQXeQSMJiIhRIPCKfQWeBs@monorail.proxy.rlwy.net:56181/railway`
 
 const db = mysql.createConnection(urlBD);
 
